@@ -34,20 +34,43 @@ var southWestbound = L.latLng(minlatbound, minlonbound),
     bounds = L.latLngBounds(southWestbound, northEastbound);
 
 // Initialize the map
-var map = L.mapbox.map('map', 'mapbox.dark', {
+var map = L.mapbox.map('map', null, {
           maxBounds: bounds,
-          maxZoom: 19,
-          minZoom: 3
+          maxZoom: 16,
+          minZoom: 6
 });
 map.fitBounds(bounds);
 
 // Code from here https://github.com/Leaflet/Leaflet.heat/blob/gh-pages/demo/index.html
-firedata = firedata.map(function (p) { return [p[2], p[3]]; });
-var heat = L.heatLayer(firedata).addTo(map);
+var firedata = firedata.map(function (p) { return [p[2], p[3]]; });
+var fireMap = L.heatLayer(firedata, {gradient: {0.4: 'gold', 0.65: 'lime', 1: 'red'}});
+// Other options can be found here https://github.com/Leaflet/Leaflet.heat
+fireMap.setOptions({blur: 0});
+fireMap.setOptions({maxZoom: 13});
+fireMap.setOptions({minOpacity: 0.4});
+fireMap.setOptions({radius: 25});
+fireMap.addTo(map);
 
 // Other mapbox layers https://www.mapbox.com/api-documentation/#maps
-var layer = L.mapbox.tileLayer('mapbox.streets');
-layer.addTo(map);
+var layers = {
+      Dark: L.mapbox.tileLayer('mapbox.dark'),
+      Streets: L.mapbox.tileLayer('mapbox.streets'),
+      Light: L.mapbox.tileLayer('mapbox.light'),
+      Satellite: L.mapbox.tileLayer('mapbox.satellite'),
+      StreetsSatellite: L.mapbox.tileLayer('mapbox.streets-satellite'),
+      Wheatpaste: L.mapbox.tileLayer('mapbox.wheatpaste'),
+      StreetsBasic: L.mapbox.tileLayer('mapbox.streets-basic'),
+      Comic: L.mapbox.tileLayer('mapbox.comic'),
+      Outdoors: L.mapbox.tileLayer('mapbox.outdoors'),
+      RunBikeHike: L.mapbox.tileLayer('mapbox.run-bike-hike'),
+      Pencil: L.mapbox.tileLayer('mapbox.pencil'),
+      Pirates: L.mapbox.tileLayer('mapbox.pirates'),
+      Emerald: L.mapbox.tileLayer('mapbox.emerald'),
+      HighContrast: L.mapbox.tileLayer('mapbox.high-contrast')
+};
+
+layers.Dark.addTo(map);
+L.control.layers(layers).addTo(map);
 
 </script>
 </body>

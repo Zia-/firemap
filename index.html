@@ -49,7 +49,7 @@ var southWestbound = L.latLng(minlatbound, minlonbound),
     bounds = L.latLngBounds(southWestbound, northEastbound);
 
 // Initialize the map
-var map = L.mapbox.map('map', 'mapbox.dark', {
+var map = L.mapbox.map('map', 'mapbox.satellite', {
           maxBounds: bounds,
           maxZoom: 19,
           minZoom: 1
@@ -134,7 +134,7 @@ var layers = {
       HighContrast: L.mapbox.tileLayer('mapbox.high-contrast')
 };
 
-layers.Dark.addTo(map);
+layers.Satellite.addTo(map);
 L.control.layers(layers).addTo(map);
 </script>
 </body>

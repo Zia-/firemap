@@ -43,13 +43,14 @@ L.mapbox.accessToken = 'pk.eyJ1IjoiemlhLW0iLCJhIjoiQjM5aVpfTSJ9.s_U7YxQCK-Zq5SaJ
 // 35.570652, 24.884267, 42.425880, 45.252919 Turkey bounds
 // 40.903699, 28.697378  41.177273, 29.276363 Istanbul bounds which was used to download osm data
 // Construct a bounding box for this map that the user cannot move out of
-var minlatbound = 35.570652, minlonbound = 24.884267, maxlatbound = 42.425880, maxlonbound = 45.252919;
+// var minlatbound = 35.570652, minlonbound = 24.884267, maxlatbound = 42.425880, maxlonbound = 45.252919;
+var minlatbound = -6.983754, minlonbound = 38.982368, maxlatbound = -6.574648, maxlonbound = 39.500786;
 var southWestbound = L.latLng(minlatbound, minlonbound),
     northEastbound = L.latLng(maxlatbound, maxlonbound),
     bounds = L.latLngBounds(southWestbound, northEastbound);
 
 // Initialize the map
-var map = L.mapbox.map('map', 'mapbox.satellite', {
+var map = L.mapbox.map('map', null, {
           maxBounds: bounds,
           maxZoom: 19,
           minZoom: 1
@@ -73,34 +74,66 @@ map.fitBounds(bounds);
 
 // console.log(firedata.length);
 
-for (i=0; i<firedata.length; ++i){
-  // console.log(firedata[i][2]);
-  // console.log(firedata[i][3]);
-  // xmin = firedata[i][2]-0.02548;
-  // xmax = firedata[i][2]+0.02548;
-  // ymin = firedata[i][3]-0.02548;
-  // ymax = firedata[i][3]+0.02548;
-  array = []
-  arr = [firedata[i][2]-0.02548, firedata[i][3]]
-  array.push(arr);
-  arr = [firedata[i][2], firedata[i][3]+0.02548]
-  array.push(arr);
-  arr = [firedata[i][2]+0.02548, firedata[i][3]]
-  array.push(arr);
-  arr = [firedata[i][2], firedata[i][3]-0.02548]
-  array.push(arr);
-  arr = [firedata[i][2]-0.02548, firedata[i][3]]
-  array.push(arr);
-  // 30, 40, 60, 80, 120 green,
-  rgb = '';
-  if (firedata[i][5] <= 30){rgb += '#0000FF'}
-  else if (firedata[i][5] > 30 && firedata[i][5] <= 40){rgb += '#00BFFF'}
-  else if (firedata[i][5] > 40 && firedata[i][5] <= 60){rgb += '#00FF80'}
-  else if (firedata[i][5] > 60 && firedata[i][5] <= 80){rgb += '#40FF00'}
-  else if (firedata[i][5] > 80 && firedata[i][5] <= 120){rgb += '#FFFF00'}
-  else if (firedata[i][5] > 120){rgb += '#FF4000'}
-  L.polygon(array, {color: rgb, opacity: 1, weight: 0}).addTo(map);
+
+var realurl = "https://raw.githubusercontent.com/Zia-/Ally-gis-code-challenge-Solution/master/data/activity_points.geojson";
+var featureLayer = L.mapbox.featureLayer(realurl, {
+    // pointToLayer: L.mapbox.marker.style,
+    pointToLayer: function(feature, latlng) {
+        return L.circleMarker(latlng, {
+            // radius: (feature.properties.population)/200000
+            radius: 20
+        })
+    }
+})
+    // .loadURL('')
+    // Once this layer loads, we set a timer to load it again in a few seconds.
+    .on('ready', run)
+    .bindPopup('Hello world!')
+    .setStyle()
+    .addTo(map);
+
+function run() {
+    // featureLayer.eachLayer(function(l) {
+    //     map.panTo(l.getLatLng());
+    // });
+    window.setTimeout(function() {
+        featureLayer.loadURL(realurl);
+    }, 2000);
 }
+
+
+
+
+
+
+// for (i=0; i<firedata.length; ++i){
+//   // console.log(firedata[i][2]);
+//   // console.log(firedata[i][3]);
+//   // xmin = firedata[i][2]-0.02548;
+//   // xmax = firedata[i][2]+0.02548;
+//   // ymin = firedata[i][3]-0.02548;
+//   // ymax = firedata[i][3]+0.02548;
+//   array = []
+//   arr = [firedata[i][2]-0.02548, firedata[i][3]]
+//   array.push(arr);
+//   arr = [firedata[i][2], firedata[i][3]+0.02548]
+//   array.push(arr);
+//   arr = [firedata[i][2]+0.02548, firedata[i][3]]
+//   array.push(arr);
+//   arr = [firedata[i][2], firedata[i][3]-0.02548]
+//   array.push(arr);
+//   arr = [firedata[i][2]-0.02548, firedata[i][3]]
+//   array.push(arr);
+//   // 30, 40, 60, 80, 120 green,
+//   rgb = '';
+//   if (firedata[i][5] <= 30){rgb += '#0000FF'}
+//   else if (firedata[i][5] > 30 && firedata[i][5] <= 40){rgb += '#00BFFF'}
+//   else if (firedata[i][5] > 40 && firedata[i][5] <= 60){rgb += '#00FF80'}
+//   else if (firedata[i][5] > 60 && firedata[i][5] <= 80){rgb += '#40FF00'}
+//   else if (firedata[i][5] > 80 && firedata[i][5] <= 120){rgb += '#FFFF00'}
+//   else if (firedata[i][5] > 120){rgb += '#FF4000'}
+//   L.polygon(array, {color: rgb, opacity: 1, weight: 0}).addTo(map);
+// }
 
 // for (i = 0; i < 1000; ++i){
 //   array = []
@@ -134,7 +167,7 @@ var layers = {
       HighContrast: L.mapbox.tileLayer('mapbox.high-contrast')
 };
 
-layers.Satellite.addTo(map);
+layers.Dark.addTo(map);
 L.control.layers(layers).addTo(map);
 </script>
 </body>

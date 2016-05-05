@@ -75,21 +75,57 @@ map.fitBounds(bounds);
 // console.log(firedata.length);
 
 
+// pointToLayer: function(feature, latlng) {
+//         return L.circleMarker(latlng, {
+//             radius: (feature.properties.population)/200000
+//         })
+//     },
+//     style: function (feature) {
+//     return {color: color_rgb_gen_redgreen( 78550, 14657434, feature.properties.population)};
+//     	},
+//     	onEachFeature: function (feature, layer) {
+//     layer.bindPopup(feature.properties.population);
+//     	}
+
+
+var myIcon = L.icon({
+    iconUrl: 'https://cdn2.iconfinder.com/data/icons/auto-cars/154/auto-car-beetle-small-128.png',
+    // iconRetinaUrl: 'my-icon@2x.png',
+    iconSize: [38, 95],
+    iconAnchor: [22, 94],
+    popupAnchor: [-3, -76],
+    // shadowUrl: 'my-icon-shadow.png',
+    // shadowRetinaUrl: 'my-icon-shadow@2x.png',
+    shadowSize: [68, 95],
+    shadowAnchor: [22, 94]
+});
+
+
+
 var realurl = "https://raw.githubusercontent.com/Zia-/Ally-gis-code-challenge-Solution/master/data/activity_points.geojson";
 var featureLayer = L.mapbox.featureLayer(realurl, {
     // pointToLayer: L.mapbox.marker.style,
     pointToLayer: function(feature, latlng) {
+      // return L.circle([39.252220,-6.813335], 200)
+    //   return L.polygon([[39.160210,-6.858332],[39.213768,-6.830380],[39.156776,-6.801745],[39.160210,-6.858332]], {color: 'red', opacity: 1, weight: 0})
         return L.circleMarker(latlng, {
-            // radius: (feature.properties.population)/200000
-            radius: 20
+            // radius: (feature.properties.previous_dominating_activity_confidence)/10
+            // radius: 20
+            // icon: L.polygon([[39.252220,-6.813335],[39.272220,-6.873335],[39.232220,-6.833335],[39.252220,-6.813335]], {color: 'red', opacity: 1, weight: 0})
         })
-    }
+    },
+    style: function (feature) {
+      return {color: 'red'};
+    },
+    // onEachFeature: function (feature, layer) {
+    //   layer.bindPopup('aaa');
+  	// }
 })
     // .loadURL('')
     // Once this layer loads, we set a timer to load it again in a few seconds.
     .on('ready', run)
     .bindPopup('Hello world!')
-    .setStyle()
+    // .setStyle()
     .addTo(map);
 
 function run() {

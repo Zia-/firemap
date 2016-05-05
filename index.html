@@ -88,17 +88,9 @@ map.fitBounds(bounds);
 //     	}
 
 
-var myIcon = L.icon({
-    iconUrl: 'https://cdn2.iconfinder.com/data/icons/auto-cars/154/auto-car-beetle-small-128.png',
-    // iconRetinaUrl: 'my-icon@2x.png',
-    iconSize: [38, 95],
-    iconAnchor: [22, 94],
-    popupAnchor: [-3, -76],
-    // shadowUrl: 'my-icon-shadow.png',
-    // shadowRetinaUrl: 'my-icon-shadow@2x.png',
-    shadowSize: [68, 95],
-    shadowAnchor: [22, 94]
-});
+
+
+
 
 
 
@@ -108,34 +100,73 @@ var featureLayer = L.mapbox.featureLayer(realurl, {
     pointToLayer: function(feature, latlng) {
       // return L.circle([39.252220,-6.813335], 200)
     //   return L.polygon([[39.160210,-6.858332],[39.213768,-6.830380],[39.156776,-6.801745],[39.160210,-6.858332]], {color: 'red', opacity: 1, weight: 0})
-        return L.circleMarker(latlng, {
-            // radius: (feature.properties.previous_dominating_activity_confidence)/10
-            // radius: 20
-            // icon: L.polygon([[39.252220,-6.813335],[39.272220,-6.873335],[39.232220,-6.833335],[39.252220,-6.813335]], {color: 'red', opacity: 1, weight: 0})
-        })
+        // return L.circleMarker(latlng, {
+        //     radius: (feature.properties.previous_dominating_activity_confidence)/10
+        //     // radius: 20
+        //     // icon: L.polygon([[39.252220,-6.813335],[39.272220,-6.873335],[39.232220,-6.833335],[39.252220,-6.813335]], {color: 'red', opacity: 1, weight: 0})
+        // })
+        return L.polygon([L.latLng(-6.813335,39.252220), L.latLng(-6.873335,39.272220), L.latLng(-6.833335,39.232220), L.latLng(-6.813335,39.252220)]);
     },
     style: function (feature) {
       return {color: 'red'};
     },
-    // onEachFeature: function (feature, layer) {
-    //   layer.bindPopup('aaa');
-  	// }
+    onEachFeature: function (feature, layer) {
+      layer.bindPopup('aaa');
+      // console.log("aaaasdasd");
+  	}
 })
     // .loadURL('')
     // Once this layer loads, we set a timer to load it again in a few seconds.
     .on('ready', run)
-    .bindPopup('Hello world!')
+    // .bindPopup('Hello world!')
     // .setStyle()
+  //   .on('click', function(feature)
+  //   {
+  //     // console.log("aaa");
+  //
+  //       if (!feature.data) return;
+  //       var popup = L.popup()
+  //           .setLatLng(feature.latLng)
+  //           .setContent(feature.properties.previous_dominating_activity_confidence)
+  //           .openOn(map);
+  //   }
+  // )
     .addTo(map);
 
 function run() {
+    // map.featureLayer.eachLayer(function(marker) {
+    //     // You can replace this test for anything else, to choose the right
+    //     // marker on which to open a popup. by default, popups are exclusive
+    //     // so opening a new one will close all of the others.
+    //     // if (marker.feature.properties.title === 'Capital Pride Parade') {
+    //     console.log("hhhh");
+    //     // marker.openPopup();
+    //     // }
+    // });
     // featureLayer.eachLayer(function(l) {
-    //     map.panTo(l.getLatLng());
+    //     // map.panTo(l.getLatLng());
+    //     var popup = L.popup()
+    //         .setLatLng(l.latLng)
+    //         .setContent(l.color)
+    //         .openOn(map);
     // });
     window.setTimeout(function() {
         featureLayer.loadURL(realurl);
     }, 2000);
 }
+
+
+
+
+
+
+// featureLayer.on('click', function(feature) {
+//     if (!feature.data) return;
+//     var popup = L.popup()
+//         .setLatLng(feature.latLng)
+//         .setContent(feature.properties.previous_dominating_activity_confidence)
+//         .openOn(map);
+// });
 
 
 

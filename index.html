@@ -168,34 +168,61 @@ function run() {
         // '<div class="container">'+
         '<div class="table-responsive">    '+
       '<table class = "table">'+
-   '<caption>Contextual Table Layout</caption>'+
-   '<thead>'+
-      '<tr>'+
-         '<th>Product</th>'+
-         '<th>Payment Date</th>'+
-        ' <th>Status</th>'+
-      '</tr>'+
-   '</thead>'+
+   '<caption><h1><strong>Fire Radiative Power:</strong> ' + Math.round(layer.feature.properties.FRP) + ' MW</h1></caption>'+
+  //  '<thead>'+
+  //     '<tr>'+
+  //        '<th>Product</th>'+
+  //        '<th>Payment Date</th>'+
+  //       // ' <th>Status</th>'+
+  //     '</tr>'+
+  //  '</thead>'+
    '<tbody>'+
-    '  <tr class = "active">'+
-      '   <td>Product1</td>'+
-        ' <td>23/11/2013</td>'+
-        ' <td>Pending</td>'+
+    '  <tr class = "danger">'+ // active success warning danger
+      '   <td>Location</td>'+
+        ' <td>Lon: ' + layer.feature.geometry.coordinates[0] + ', Lat: ' + layer.feature.geometry.coordinates[1] + '</td>'+
+        // ' <td>Pending</td>'+
     '  </tr>'+
-    '  <tr class = "success">'+
-      '   <td>Product2</td>'+
-      '   <td>10/11/2013</td>'+
-      '   <td>Delivered</td>'+
+    '  <tr class = "warning">'+
+      '   <td>Time</td>'+
+      '   <td>' + layer.feature.properties.TIME + '</td>'+
+      // '   <td>Delivered</td>'+
       '</tr>'+
-      '<tr class = "warning">'+
-      '   <td>Product3</td>'+
-      '   <td>20/10/2013</td>'+
-      '   <td>In Call to confirm</td>'+
+      '<tr class = "success">'+
+      '   <td>Pixel Size</td>'+
+      '   <td>' + layer.feature.properties.PIXEL_SIZE + ' km<sup>2</sup></td>'+
+      // '   <td>In Call to confirm</td>'+
     '  </tr>'+
-    '  <tr class = "danger">'+
-    '     <td>Product4</td>'+
-      '   <td>20/10/2013</td>'+
-      '   <td>Declined</td>'+
+    '  <tr class = "active">'+
+    '     <td>Fire Confidence</td>'+
+      '   <td>' + layer.feature.properties.F_CONF + '</td>'+
+      // '   <td>Declined</td>'+
+    '  </tr>'+
+    '  <tr class = "active">'+
+    '     <td>FIR Uncertainity</td>'+
+      '   <td>' + layer.feature.properties.FRP_UNCER + '</td>'+
+      // '   <td>Declined</td>'+
+    '  </tr>'+
+    '  </tr>'+
+    '  <tr class = "active">'+
+    '     <td>Brightness MIR Temp.</td>'+
+      '   <td>' + layer.feature.properties.BT_MIR + ' K</td>'+
+      // '   <td>Declined</td>'+
+    '  </tr>'+
+    '  </tr>'+
+    '  <tr class = "active">'+
+    '     <td>Brightness TIR Temp.</td>'+
+      '   <td>' + layer.feature.properties.BT_TIR + ' K</td>'+
+      // '   <td>Declined</td>'+
+    '  </tr>'+
+    // '  <tr class = "active">'+
+    // '     <td>Brightness TIR Temp.</td>'+
+    //   '   <td>' + layer.feature.properties.BW_BT_MIR + '</td>'+
+    //   // '   <td>Declined</td>'+
+    // '  </tr>'+
+    '  <tr class = "active">'+
+    '     <td>Julian Day</td>'+
+      '   <td>' + layer.feature.properties.JDAY + '</td>'+
+      // '   <td>Declined</td>'+
     '  </tr>'+
    '</tbody>'+
 '</table>'+

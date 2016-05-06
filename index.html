@@ -105,10 +105,15 @@ var featureLayer = L.mapbox.featureLayer(realurl, {
         //     // radius: 20
         //     // icon: L.polygon([[39.252220,-6.813335],[39.272220,-6.873335],[39.232220,-6.833335],[39.252220,-6.813335]], {color: 'red', opacity: 1, weight: 0})
         // })
-        return L.polygon([L.latLng(-6.813335,39.252220), L.latLng(-6.873335,39.272220), L.latLng(-6.833335,39.232220), L.latLng(-6.813335,39.252220)]);
+        // console.log(latlng);
+        var lng = latlng['lng']
+        var lat = latlng['lat']
+        // console.log(lon);
+        // var lonmin = lon-0.02548
+        return L.polygon([L.latLng(lat,lng-0.02548), L.latLng(lat+0.02548,lng), L.latLng(lat,lng+0.02548), L.latLng(lat-0.02548,lng), L.latLng(lat,lng-0.02548)]);
     },
     style: function (feature) {
-      return {color: 'red'};
+      return {color: 'red', weight: 1, opacity: 1};
     },
     onEachFeature: function (feature, layer) {
       layer.bindPopup('aaa');

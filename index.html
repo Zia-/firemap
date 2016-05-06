@@ -115,10 +115,16 @@ var featureLayer = L.mapbox.featureLayer(realurl, {
     style: function (feature) {
       return {color: 'red', weight: 1, opacity: 1};
     },
-    onEachFeature: function (feature, layer) {
-      layer.bindPopup('aaa');
-      // console.log("aaaasdasd");
-  	}
+    // popupOptions: function (feature) {
+    //   var popup = L.popup()
+    //               .setContent('<p>Hello world!<br />This is a nice popup.</p>')
+    //   return {maxWidth: 100}
+    // }
+    // onEachFeature: function (feature, layer) {
+    //   layer.bindPopup('aaa');
+    //   // console.log("aaaasdasd");
+  	// }
+    // onEachFeature: onEachFeature
 })
     // .loadURL('')
     // Once this layer loads, we set a timer to load it again in a few seconds.
@@ -148,13 +154,21 @@ function run() {
     //     // marker.openPopup();
     //     // }
     // });
-    // featureLayer.eachLayer(function(l) {
-    //     // map.panTo(l.getLatLng());
-    //     var popup = L.popup()
-    //         .setLatLng(l.latLng)
-    //         .setContent(l.color)
-    //         .openOn(map);
-    // });
+    featureLayer.eachLayer(function(layer) {
+      // console.log(layer.feature.properties.accuracy);
+
+      
+
+
+
+      var str = layer.feature.properties.accuracy
+      layer.bindPopup(String(str));
+        // map.panTo(l.getLatLng());
+        // var popup = L.popup()
+        //     .setLatLng(l.latLng)
+        //     .setContent(l.color)
+        //     .openOn(map);
+    });
     window.setTimeout(function() {
         featureLayer.loadURL(realurl);
     }, 2000);
@@ -165,13 +179,13 @@ function run() {
 
 
 
-// featureLayer.on('click', function(feature) {
-//     if (!feature.data) return;
-//     var popup = L.popup()
-//         .setLatLng(feature.latLng)
-//         .setContent(feature.properties.previous_dominating_activity_confidence)
-//         .openOn(map);
-// });
+// function onEachFeature(feature, layer) {
+//       layer.on({
+//           mousemove: console.log("mousemove"),
+//           mouseout: console.log("mouseout"),
+//           click: console.log("click")
+//       });
+//   };
 
 
 

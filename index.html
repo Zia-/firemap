@@ -11,7 +11,31 @@
         .ghbtns { position: relative; top: 4px; margin-left: 5px; }
         a { color: #0077ff; }*/
         body { margin:0; padding:0; }
-        #map { position:absolute; top:0; bottom:0; width:100%; }
+        #map { position:absolute; top:0; bottom:0; width:100%;}
+        .led-red {
+            position: absolute;
+            z-index: 1;
+            top: 15px;
+            left: 50px;
+            /*margin: 20px auto;*/
+            width: 12px;
+            height: 12px;
+            background-color: #FF0000;
+            border-radius: 50%;
+            box-shadow: #FFFFFF 0 -1px 7px 1px, inset #600 0 -1px 9px, #FFFFFF 0 2px 12px;
+        }
+        .led-green {
+            position: absolute;
+            z-index: 1;
+            top: 15px;
+            left: 70px;
+            /*margin: 20px auto;*/
+            width: 12px;
+            height: 12px;
+            background-color: #55FF00;
+            border-radius: 50%;
+            box-shadow: #FFFFFF 0 -1px 7px 1px, inset #460 0 -1px 9px, #FFFFFF 0 2px 12px;
+        }
     </style>
 
     <style>
@@ -32,7 +56,11 @@
 </head>
 
 <body>
-<div id="map"></div>
+<div id="map">
+  <!-- More info about siren http://cssdeck.com/labs/css-leds -->
+  <div class="led-green"></div>
+  <div class="led-red"></div>
+</div>
 
 <!-- <script src="http://cdn.leafletjs.com/leaflet/v0.7.7/leaflet.js"></script> -->
 <script src='https://api.mapbox.com/mapbox.js/v2.4.0/mapbox.js'></script>
@@ -254,12 +282,58 @@ function run() {
         //     .openOn(map);
     });
     window.setTimeout(function() {
+
+        // $(".led-green").toggle(function(){
+        //
+        //   $(this).css('background-color','#190707')
+        // }, function(){
+        //   $(this).css('background-color','#0101DF')
+        // })
+
+
+
+        // $(".led-green").css('background-color','#3104B4');
+        // console.log("hi");
         featureLayer.loadURL(realurl);
-    }, 50000);
+    }, 300000);
 }
 
+var testerVar = 0;
+function myTimer() {
+  if (testerVar == 0){
+    $(".led-green").css('background-color','transparent');
+    // $(".led-green").animate({'background-color', '#D3E1FA'}, 'slow');
+    testerVar = 1;
+  } else {
+    $(".led-green").css('background-color','#55FF00');
+    // $(".led-green").animate({'background-color', '#F4F4F4'}, 'slow');
+    testerVar = 0;
+  }
+};
+var sirenTimer = setInterval(myTimer, 500);
 
 
+
+
+// function explode(){
+//   alert("Boom!");
+// }
+// setTimeout(explode, 2000);
+
+// window.setTimeout(function() {
+//
+//       $(".led-green").toggle(function(){
+//
+//         $(this).css('background-color','#55FF00')
+//       }, function(){
+//         $(this).css('background-color','#FF0000')
+//       })
+//
+//
+//
+//     // $(".led-green").css('background-color','#3104B4');
+//     // console.log("hi");
+// }, 1000);
 
 
 

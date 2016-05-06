@@ -4,13 +4,38 @@
     <title>Leaflet.heat demo</title>
     <link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet/v0.7.7/leaflet.css" />
     <link href='https://api.mapbox.com/mapbox.js/v2.4.0/mapbox.css' rel='stylesheet' />
+    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
     <style>
         /*#map { width: 800px; height: 600px; }
         body { font: 16px/1.4 "Helvetica Neue", Arial, sans-serif; }
         .ghbtns { position: relative; top: 4px; margin-left: 5px; }
         a { color: #0077ff; }*/
         body { margin:0; padding:0; }
-        #map { position:absolute; top:0; bottom:0; width:100%; }
+        #map { position:absolute; top:0; bottom:0; width:100%;}
+        .led-red {
+            position: absolute;
+            z-index: 1;
+            top: 15px;
+            left: 50px;
+            /*margin: 20px auto;*/
+            width: 12px;
+            height: 12px;
+            background-color: #FF0000;
+            border-radius: 50%;
+            box-shadow: #FFFFFF 0 -1px 7px 1px, inset #600 0 -1px 9px, #FFFFFF 0 2px 12px;
+        }
+        .led-green {
+            position: absolute;
+            z-index: 1;
+            top: 15px;
+            left: 70px;
+            /*margin: 20px auto;*/
+            width: 12px;
+            height: 12px;
+            background-color: #55FF00;
+            border-radius: 50%;
+            box-shadow: #FFFFFF 0 -1px 7px 1px, inset #460 0 -1px 9px, #FFFFFF 0 2px 12px;
+        }
     </style>
 
     <style>
@@ -31,11 +56,17 @@
 </head>
 
 <body>
-<div id="map"></div>
+<div id="map">
+  <!-- More info about siren http://cssdeck.com/labs/css-leds -->
+  <div class="led-green"></div>
+  <div class="led-red"></div>
+</div>
 
 <!-- <script src="http://cdn.leafletjs.com/leaflet/v0.7.7/leaflet.js"></script> -->
 <script src='https://api.mapbox.com/mapbox.js/v2.4.0/mapbox.js'></script>
 <script src="https://api.mapbox.com/mapbox.js/plugins/leaflet-heat/v0.1.3/leaflet-heat.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.2/jquery.min.js"></script>
+<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
 <script src="http://zia-.github.io/firemap_data/geo_2015.js"></script>
 <script>
 // Fix mapbox token
@@ -158,8 +189,88 @@ function run() {
       // console.log(layer.feature.properties.accuracy);
 
       var popup = new L.Popup({ autoPan: false });
-      popup.setContent('<div>' + layer.feature.properties.JDAY + '</div>' +
-          layer.feature.properties.F_CONF + ' people per square mile');
+      // popup.setContent('<div>' + layer.feature.properties.JDAY + '</div>' +
+      //     layer.feature.properties.F_CONF + ' people per square mile');
+
+      popup.setContent(
+        // '<div class="container">'+
+        '<div class="table-responsive">    '+
+      '<table class = "table">'+
+   '<caption><h1><strong>Fire Radiative Power:</strong> ' + Math.round(layer.feature.properties.FRP) + ' MW</h1></caption>'+
+  //  '<thead>'+
+  //     '<tr>'+
+  //        '<th>Product</th>'+
+  //        '<th>Payment Date</th>'+
+  //       // ' <th>Status</th>'+
+  //     '</tr>'+
+  //  '</thead>'+
+   '<tbody>'+
+    '  <tr class = "danger">'+ // active success warning danger
+      '   <td>Location</td>'+
+        ' <td>Lon: ' + layer.feature.geometry.coordinates[0] + ', Lat: ' + layer.feature.geometry.coordinates[1] + '</td>'+
+        // ' <td>Pending</td>'+
+    '  </tr>'+
+    '  <tr class = "warning">'+
+      '   <td>Time</td>'+
+      '   <td>' + layer.feature.properties.TIME + '</td>'+
+      // '   <td>Delivered</td>'+
+      '</tr>'+
+      '<tr class = "success">'+
+      '   <td>Pixel Size</td>'+
+      '   <td>' + layer.feature.properties.PIXEL_SIZE + ' km<sup>2</sup></td>'+
+      // '   <td>In Call to confirm</td>'+
+    '  </tr>'+
+    '  <tr class = "active">'+
+    '     <td>Fire Confidence</td>'+
+      '   <td>' + layer.feature.properties.F_CONF + '</td>'+
+      // '   <td>Declined</td>'+
+    '  </tr>'+
+    '  <tr class = "active">'+
+    '     <td>FIR Uncertainity</td>'+
+      '   <td>' + layer.feature.properties.FRP_UNCER + '</td>'+
+      // '   <td>Declined</td>'+
+    '  </tr>'+
+    '  </tr>'+
+    '  <tr class = "active">'+
+    '     <td>Brightness MIR Temp.</td>'+
+      '   <td>' + layer.feature.properties.BT_MIR + ' K</td>'+
+      // '   <td>Declined</td>'+
+    '  </tr>'+
+    '  </tr>'+
+    '  <tr class = "active">'+
+    '     <td>Brightness TIR Temp.</td>'+
+      '   <td>' + layer.feature.properties.BT_TIR + ' K</td>'+
+      // '   <td>Declined</td>'+
+    '  </tr>'+
+    // '  <tr class = "active">'+
+    // '     <td>Brightness TIR Temp.</td>'+
+    //   '   <td>' + layer.feature.properties.BW_BT_MIR + '</td>'+
+    //   // '   <td>Declined</td>'+
+    // '  </tr>'+
+    '  <tr class = "active">'+
+    '     <td>Julian Day</td>'+
+      '   <td>' + layer.feature.properties.JDAY + '</td>'+
+      // '   <td>Declined</td>'+
+    '  </tr>'+
+   '</tbody>'+
+'</table>'+
+// '  </div>'+
+'</div>'
+)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
       layer.bindPopup(popup);
       // var str = layer.feature.properties.accuracy
@@ -171,12 +282,58 @@ function run() {
         //     .openOn(map);
     });
     window.setTimeout(function() {
+
+        // $(".led-green").toggle(function(){
+        //
+        //   $(this).css('background-color','#190707')
+        // }, function(){
+        //   $(this).css('background-color','#0101DF')
+        // })
+
+
+
+        // $(".led-green").css('background-color','#3104B4');
+        // console.log("hi");
         featureLayer.loadURL(realurl);
-    }, 5000);
+    }, 300000);
 }
 
+var testerVar = 0;
+function myTimer() {
+  if (testerVar == 0){
+    $(".led-green").css('background-color','transparent');
+    // $(".led-green").animate({'background-color', '#D3E1FA'}, 'slow');
+    testerVar = 1;
+  } else {
+    $(".led-green").css('background-color','#55FF00');
+    // $(".led-green").animate({'background-color', '#F4F4F4'}, 'slow');
+    testerVar = 0;
+  }
+};
+var sirenTimer = setInterval(myTimer, 500);
 
 
+
+
+// function explode(){
+//   alert("Boom!");
+// }
+// setTimeout(explode, 2000);
+
+// window.setTimeout(function() {
+//
+//       $(".led-green").toggle(function(){
+//
+//         $(this).css('background-color','#55FF00')
+//       }, function(){
+//         $(this).css('background-color','#FF0000')
+//       })
+//
+//
+//
+//     // $(".led-green").css('background-color','#3104B4');
+//     // console.log("hi");
+// }, 1000);
 
 
 

@@ -43,8 +43,8 @@ L.mapbox.accessToken = 'pk.eyJ1IjoiemlhLW0iLCJhIjoiQjM5aVpfTSJ9.s_U7YxQCK-Zq5SaJ
 // 35.570652, 24.884267, 42.425880, 45.252919 Turkey bounds
 // 40.903699, 28.697378  41.177273, 29.276363 Istanbul bounds which was used to download osm data
 // Construct a bounding box for this map that the user cannot move out of
-// var minlatbound = 35.570652, minlonbound = 24.884267, maxlatbound = 42.425880, maxlonbound = 45.252919;
-var minlatbound = -6.983754, minlonbound = 38.982368, maxlatbound = -6.574648, maxlonbound = 39.500786;
+var minlatbound = 35.570652, minlonbound = 24.884267, maxlatbound = 42.425880, maxlonbound = 45.252919;
+// var minlatbound = -6.983754, minlonbound = 38.982368, maxlatbound = -6.574648, maxlonbound = 39.500786;
 var southWestbound = L.latLng(minlatbound, minlonbound),
     northEastbound = L.latLng(maxlatbound, maxlonbound),
     bounds = L.latLngBounds(southWestbound, northEastbound);
@@ -94,7 +94,7 @@ map.fitBounds(bounds);
 
 
 
-var realurl = "https://raw.githubusercontent.com/Zia-/Ally-gis-code-challenge-Solution/master/data/activity_points.geojson";
+var realurl = "https://raw.githubusercontent.com/Zia-/Zia-.github.io/master/firemap_data/SEVIRI_data.geojson";
 var featureLayer = L.mapbox.featureLayer(realurl, {
     // pointToLayer: L.mapbox.marker.style,
     pointToLayer: function(feature, latlng) {
@@ -157,12 +157,13 @@ function run() {
     featureLayer.eachLayer(function(layer) {
       // console.log(layer.feature.properties.accuracy);
 
-      
+      var popup = new L.Popup({ autoPan: false });
+      popup.setContent('<div>' + layer.feature.properties.JDAY + '</div>' +
+          layer.feature.properties.F_CONF + ' people per square mile');
 
-
-
-      var str = layer.feature.properties.accuracy
-      layer.bindPopup(String(str));
+      layer.bindPopup(popup);
+      // var str = layer.feature.properties.accuracy
+      // layer.bindPopup(String(str));
         // map.panTo(l.getLatLng());
         // var popup = L.popup()
         //     .setLatLng(l.latLng)
@@ -171,7 +172,7 @@ function run() {
     });
     window.setTimeout(function() {
         featureLayer.loadURL(realurl);
-    }, 2000);
+    }, 5000);
 }
 
 

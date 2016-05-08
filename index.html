@@ -30,7 +30,7 @@ var realurl = "https://raw.githubusercontent.com/Zia-/Zia-.github.io/master/fire
 function getjsonfunc(){
   $.getJSON( realurl, function( json ) {
   // console.log( "JSON Data: " + json.features.length );
-  console.log(document.body.childNodes.length);
+  // console.log(document.body.childNodes.length);
   // console.log(document.getElementById("buttonList").childNodes.length);
 
 
@@ -38,30 +38,42 @@ function getjsonfunc(){
     document.body.removeChild(document.body.firstChild);
   }
 
+  for (i=0; i<json.features.length; ++i){
+    var btn = document.createElement("button");
+    btn.setAttribute('type','button');
+    // Change color of button according to FRP value. For now it's constant ie warning
+    btn.setAttribute('class', 'btn-warning btn-lg btn-block');
+    var aTag = document.createElement("a");
+    aTag.setAttribute('style', 'color:white');
+    var href = 'geo:0,0?q=' + json.features[i].geometry.coordinates[1] + ',' + json.features[i].geometry.coordinates[0] + '(' + json.features[i].properties.TIME + ')';
+    aTag.setAttribute('href', href);
+    var labelTxt = "Location " + (i+1);
+    var label = document.createTextNode(labelTxt);
+    aTag.appendChild(label);
+    btn.appendChild(aTag);
+    document.body.appendChild(btn);
+  }
 
 
 
-  var btn = document.createElement("button");
-  btn.setAttribute('type','button');
-  btn.setAttribute('class', 'btn-warning btn-lg btn-block')
-  var aTag = document.createElement("a");
-  aTag.setAttribute('style', 'color:white');
-  aTag.setAttribute('href', 'geo:0,0?q=41.0082,28.9784(Istanbul Point)');
-  var label = document.createTextNode("CLICK ME");
-  aTag.appendChild(label);
-  btn.appendChild(aTag);
-  document.body.appendChild(btn);
 
-  var btn = document.createElement("button");
-  btn.setAttribute('type','button');
-  btn.setAttribute('class', 'btn-warning btn-lg btn-block')
-  var aTag = document.createElement("a");
-  aTag.setAttribute('style', 'color:white');
-  aTag.setAttribute('href', 'geo:0,0?q=41.0082,28.9784(Istanbul Point)');
-  var label = document.createTextNode("CLICK ME");
-  aTag.appendChild(label);
-  btn.appendChild(aTag);
-  document.body.appendChild(btn);
+
+
+
+
+
+
+
+  // var btn = document.createElement("button");
+  // btn.setAttribute('type','button');
+  // btn.setAttribute('class', 'btn-warning btn-lg btn-block')
+  // var aTag = document.createElement("a");
+  // aTag.setAttribute('style', 'color:white');
+  // aTag.setAttribute('href', 'geo:0,0?q=41.0082,28.9784(Istanbul Point)');
+  // var label = document.createTextNode("CLICK ME");
+  // aTag.appendChild(label);
+  // btn.appendChild(aTag);
+  // document.body.appendChild(btn);
 
 
 
@@ -75,7 +87,7 @@ var dataUploadOnce = getjsonfunc();
 //   console.log( "JSON Data: " + json.features.length );
 //   });
 // }
-var dataUpload = setInterval(getjsonfunc, 5000);
+var dataUpload = setInterval(getjsonfunc, 300000);
 
 
 // $.getJSON( realurl, function( json ) {
@@ -83,19 +95,19 @@ var dataUpload = setInterval(getjsonfunc, 5000);
 // });
 </script>
 
-<!-- var testerVar = 0;
-function myTimer() {
-  if (testerVar == 0){
-    $(".led-green").css('background-color','transparent');
-    // $(".led-green").animate({'background-color', '#D3E1FA'}, 'slow');
-    testerVar = 1;
-  } else {
-    $(".led-green").css('background-color','#55FF00');
-    // $(".led-green").animate({'background-color', '#F4F4F4'}, 'slow');
-    testerVar = 0;
-  }
-};
-var sirenTimer = setInterval(myTimer, 500); -->
+// var testerVar = 0;
+// function myTimer() {
+//   if (testerVar == 0){
+//     $(".led-green").css('background-color','transparent');
+//     // $(".led-green").animate({'background-color', '#D3E1FA'}, 'slow');
+//     testerVar = 1;
+//   } else {
+//     $(".led-green").css('background-color','#55FF00');
+//     // $(".led-green").animate({'background-color', '#F4F4F4'}, 'slow');
+//     testerVar = 0;
+//   }
+// };
+// var sirenTimer = setInterval(myTimer, 500);
 
 </body>
 </html>

@@ -10,11 +10,17 @@
 
 <!-- <button type="button"><a href="geo:0,0?q=41.0082,28.9784(Istanbul Point)">Open in Google Maps</a></button> -->
 
-<button type="button" class=" btn-warning btn-lg btn-block"><a style="color:white" href="geo:0,0?q=41.0082,28.9784(Istanbul Point)">Open in Google Maps</a></button>
-<button type="button" class=" btn-danger btn-lg btn-block"><a style="color:white" href="geo:0,0?q=42.0082,29.9784(Istanbul Point)">Open in Google Maps</a></button>
+<!-- <button type="button" class=" btn-warning btn-lg btn-block"><a style="color:white" href="geo:0,0?q=41.0082,28.9784(Istanbul Point)">Open in Google Maps</a></button>
+<button type="button" class=" btn-danger btn-lg btn-block"><a style="color:white" href="geo:0,0?q=42.0082,29.9784(Istanbul Point)">Open in Google Maps</a></button> -->
 
 <!-- <button type="button" class=" btn-warning btn-lg btn-block" style="color:white" href="geo:0,0?q=41.0082,28.9784(Istanbul Point)">Open in Google Maps</button> -->
 
+<!-- <ul id="buttonList">
+  <button type="button" class=" btn-warning btn-lg btn-block"><a style="color:white" href="geo:0,0?q=41.0082,28.9784(Istanbul Point)">Open in Google Maps</a></button>
+  <button type="button" class=" btn-danger btn-lg btn-block"><a style="color:white" href="geo:0,0?q=42.0082,29.9784(Istanbul Point)">Open in Google Maps</a></button>
+
+
+</ul> -->
 
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.2/jquery.min.js"></script>
@@ -23,8 +29,28 @@
 var realurl = "https://raw.githubusercontent.com/Zia-/Zia-.github.io/master/firemap_data/SEVIRI_data.geojson";
 function getjsonfunc(){
   $.getJSON( realurl, function( json ) {
-  console.log( "JSON Data: " + json.features.length );
+  // console.log( "JSON Data: " + json.features.length );
+  console.log(document.body.childNodes.length);
+  // console.log(document.getElementById("buttonList").childNodes.length);
 
+
+  while (document.body.firstChild) {
+    document.body.removeChild(document.body.firstChild);
+  }
+
+
+
+
+  var btn = document.createElement("button");
+  btn.setAttribute('type','button');
+  btn.setAttribute('class', 'btn-warning btn-lg btn-block')
+  var aTag = document.createElement("a");
+  aTag.setAttribute('style', 'color:white');
+  aTag.setAttribute('href', 'geo:0,0?q=41.0082,28.9784(Istanbul Point)');
+  var label = document.createTextNode("CLICK ME");
+  aTag.appendChild(label);
+  btn.appendChild(aTag);
+  document.body.appendChild(btn);
 
   var btn = document.createElement("button");
   btn.setAttribute('type','button');

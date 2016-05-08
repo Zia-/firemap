@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Firemap Google Maps Links</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+</head>
+<body>
+
+<!-- <button type="button"><a href="geo:0,0?q=41.0082,28.9784(Istanbul Point)">Open in Google Maps</a></button> -->
+
+<!-- <button type="button" class=" btn-warning btn-lg btn-block"><a style="color:white" href="geo:0,0?q=41.0082,28.9784(Istanbul Point)">Open in Google Maps</a></button>
+<button type="button" class=" btn-danger btn-lg btn-block"><a style="color:white" href="geo:0,0?q=42.0082,29.9784(Istanbul Point)">Open in Google Maps</a></button> -->
+
+<!-- <button type="button" class=" btn-warning btn-lg btn-block" style="color:white" href="geo:0,0?q=41.0082,28.9784(Istanbul Point)">Open in Google Maps</button> -->
+
+<!-- <ul id="buttonList">
+  <button type="button" class=" btn-warning btn-lg btn-block"><a style="color:white" href="geo:0,0?q=41.0082,28.9784(Istanbul Point)">Open in Google Maps</a></button>
+  <button type="button" class=" btn-danger btn-lg btn-block"><a style="color:white" href="geo:0,0?q=42.0082,29.9784(Istanbul Point)">Open in Google Maps</a></button>
+
+
+</ul> -->
+
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.2/jquery.min.js"></script>
+<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+<script>
+var realurl = "https://raw.githubusercontent.com/Zia-/Zia-.github.io/master/firemap_data/SEVIRI_data.geojson";
+function getjsonfunc(){
+  $.getJSON( realurl, function( json ) {
+  // console.log( "JSON Data: " + json.features.length );
+  // console.log(document.body.childNodes.length);
+  // console.log(document.getElementById("buttonList").childNodes.length);
+
+
+  while (document.body.firstChild) {
+    document.body.removeChild(document.body.firstChild);
+  }
+
+  for (i=0; i<json.features.length; ++i){
+    var btn = document.createElement("button");
+    btn.setAttribute('type','button');
+    // Change color of button according to FRP value. For now it's constant ie warning
+    btn.setAttribute('class', 'btn-warning btn-lg btn-block');
+    var aTag = document.createElement("a");
+    aTag.setAttribute('style', 'color:white');
+    var href = 'geo:0,0?q=' + json.features[i].geometry.coordinates[1] + ',' + json.features[i].geometry.coordinates[0] + '(' + json.features[i].properties.TIME + ')';
+    aTag.setAttribute('href', href);
+    var labelTxt = "Location " + (i+1);
+    var label = document.createTextNode(labelTxt);
+    aTag.appendChild(label);
+    btn.appendChild(aTag);
+    document.body.appendChild(btn);
+  }
+
+
+
+
+
+
+
+
+
+
+
+  // var btn = document.createElement("button");
+  // btn.setAttribute('type','button');
+  // btn.setAttribute('class', 'btn-warning btn-lg btn-block')
+  // var aTag = document.createElement("a");
+  // aTag.setAttribute('style', 'color:white');
+  // aTag.setAttribute('href', 'geo:0,0?q=41.0082,28.9784(Istanbul Point)');
+  // var label = document.createTextNode("CLICK ME");
+  // aTag.appendChild(label);
+  // btn.appendChild(aTag);
+  // document.body.appendChild(btn);
+
+
+
+
+  });
+}
+var dataUploadOnce = getjsonfunc();
+
+// function myTimer() {
+//   $.getJSON( realurl, function( json ) {
+//   console.log( "JSON Data: " + json.features.length );
+//   });
+// }
+var dataUpload = setInterval(getjsonfunc, 300000);
+
+
+// $.getJSON( realurl, function( json ) {
+// console.log( "JSON Data: " + json.features.length );
+// });
+</script>
+
+// var testerVar = 0;
+// function myTimer() {
+//   if (testerVar == 0){
+//     $(".led-green").css('background-color','transparent');
+//     // $(".led-green").animate({'background-color', '#D3E1FA'}, 'slow');
+//     testerVar = 1;
+//   } else {
+//     $(".led-green").css('background-color','#55FF00');
+//     // $(".led-green").animate({'background-color', '#F4F4F4'}, 'slow');
+//     testerVar = 0;
+//   }
+// };
+// var sirenTimer = setInterval(myTimer, 500);
+
+</body>
+</html>

@@ -153,10 +153,16 @@ var geojsontester = setInterval(mytester, 5000);
 //////////////////////////////////////////////////////////////////////////////////////////////
 
 
-
-
-
-
+// Function to alter danger button height based on json feature count
+// function dangerTop(featCount) {
+//   if (featCount == 0) {
+//     $("danger").css("top", "-100px");
+//   } else {
+//     $("danger").css("top", "15px");
+//   }
+// }
+//
+// $.getJSON( realurl, function( json ) { console.log(json.features.length);});
 
 
 
@@ -373,6 +379,7 @@ function run() {
         // $(".led-green").css('background-color','#3104B4');
         // console.log("hi");
         featureLayer.loadURL(realurl);
+        // $.getJSON( realurl, function( json ) { console.log(json.features.length);});
     }, 5000);
 }
 

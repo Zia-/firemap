@@ -26,14 +26,43 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.2/jquery.min.js"></script>
 <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
 <script>
-var realurl = "https://raw.githubusercontent.com/Zia-/Zia-.github.io/master/firemap_data/SEVIRI_data.geojson";
+
+//////////////////////////////////////////////////////////////////////////////////////////////
+var realurl = "https://raw.githubusercontent.com/Zia-/Zia-.github.io/master/firemap_data/realfire0.geojson";
+////////////// To have a static url just delete the following section, and update above url accordingly
+var tester = 0;
+function mytester() {
+  switch (tester){
+    case 0:
+      realurl = "https://raw.githubusercontent.com/Zia-/Zia-.github.io/master/firemap_data/realfire1.geojson";
+      tester = 1;
+      break;
+    case 1:
+      realurl = "https://raw.githubusercontent.com/Zia-/Zia-.github.io/master/firemap_data/realfire2.geojson";
+      tester = 2;
+      break;
+    case 2:
+      realurl = "https://raw.githubusercontent.com/Zia-/Zia-.github.io/master/firemap_data/realfire0.geojson";
+      tester = 0;
+      break;
+  }
+};
+var geojsontester = setInterval(mytester, 10000);
+//////////////////////////////////////////////////////////////////////////////////////////////
+
+
+
 function getjsonfunc(){
   $.getJSON( realurl, function( json ) {
   // console.log( "JSON Data: " + json.features.length );
   // console.log(document.body.childNodes.length);
   // console.log(document.getElementById("buttonList").childNodes.length);
 
+  // Following one line code is sorting features based on FRP value,
+  // so that danger button will be at the top and success at the bottom
+  json.features.sort(function(a,b) {return (a.properties.FRP < b.properties.FRP)});
 
+  // Remove all button after every url load
   while (document.body.firstChild) {
     document.body.removeChild(document.body.firstChild);
   }
@@ -41,10 +70,22 @@ function getjsonfunc(){
   for (i=0; i<json.features.length; ++i){
     var btn = document.createElement("button");
     btn.setAttribute('type','button');
-    // Change color of button according to FRP value. For now it's constant ie warning
-    btn.setAttribute('class', 'btn-warning btn-lg btn-block');
+
+    // Following code block is handeling button color
+    var buttonColorClass = '';
+    var frp_value = json.features[i].properties.FRP
+    if (frp_value <= 30){buttonColorClass += 'btn-success btn-lg btn-block'}
+    else if (frp_value > 30 && frp_value <= 40){buttonColorClass += 'btn-success btn-lg btn-block'}
+    else if (frp_value > 40 && frp_value <= 60){buttonColorClass += 'btn-info btn-lg btn-block'}
+    else if (frp_value > 60 && frp_value <= 80){buttonColorClass += 'btn-primary btn-lg btn-block'}
+    else if (frp_value > 80 && frp_value <= 120){buttonColorClass += 'btn-warning btn-lg btn-block'}
+    else if (frp_value > 120){buttonColorClass += 'btn-danger btn-lg btn-block'}
+
+    btn.setAttribute('class', buttonColorClass);
     var aTag = document.createElement("a");
     aTag.setAttribute('style', 'color:white');
+    // text-shadow: 1px 0 0 #000, 0 -1px 0 #000, 0 1px 0 #000, -1px 0 0 #000;
+    // aTag.setAttribute('style', 'text-shadow: 1px 0 0 black! important, 0 -1px 0 black! important, 0 1px 0 black! important, -1px 0 0 black! important');
     var href = 'geo:0,0?q=' + json.features[i].geometry.coordinates[1] + ',' + json.features[i].geometry.coordinates[0] + '(' + json.features[i].properties.TIME + ')';
     aTag.setAttribute('href', href);
     var labelTxt = "Location " + (i+1);
@@ -87,7 +128,7 @@ var dataUploadOnce = getjsonfunc();
 //   console.log( "JSON Data: " + json.features.length );
 //   });
 // }
-var dataUpload = setInterval(getjsonfunc, 300000);
+var dataUpload = setInterval(getjsonfunc, 10000);
 
 
 // $.getJSON( realurl, function( json ) {

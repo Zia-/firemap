@@ -39,7 +39,8 @@
         .danger {
             position: absolute;
             z-index: 1;
-            top: 15px;
+            /*top: 15px;*/
+            top: -100px;
             left: 45%;
             /*width: 12px;*/
             height: 40px;
@@ -68,7 +69,7 @@
 <div id="map">
   <!-- More info about siren http://cssdeck.com/labs/css-leds -->
   <div class="led-green"></div>
-  <button class="btn btn-disabled btn-danger danger" type="button">DANGER!</button>
+  <!-- <button class="btn btn-disabled btn-danger danger" type="button">DANGER!</button> -->
   <!-- <div class="led-red"></div> -->
 </div>
 
@@ -130,7 +131,7 @@ map.fitBounds(bounds);
 
 
 //////////////////////////////////////////////////////////////////////////////////////////////
-var realurl = "https://raw.githubusercontent.com/Zia-/Zia-.github.io/master/firemap_data/realfire0.geojson";
+var realurl = "https://raw.githubusercontent.com/Zia-/Zia-.github.io/master/firemap_data/realfire1.geojson";
 ////////////// To have a static url just delete the following section, and update above url accordingly
 var tester = 0;
 function mytester() {
@@ -158,13 +159,13 @@ var geojsontester = setInterval(mytester, 5000);
 //   if (featCount == 0) {
 //     $("danger").css("top", "-100px");
 //   } else {
-//     $("danger").css("top", "15px");
+//     $(".danger").css("top", "15px");
 //   }
 // }
 //
 // $.getJSON( realurl, function( json ) { console.log(json.features.length);});
 
-
+$(".danger").css("top", "15px");
 
 // var realurl = "https://raw.githubusercontent.com/Zia-/Zia-.github.io/master/firemap_data/realfire2.geojson";
 var featureLayer = L.mapbox.featureLayer(realurl, {
@@ -293,6 +294,14 @@ function run() {
         ' <td>Lat: ' + layer.feature.geometry.coordinates[1] + ', Lon: ' + layer.feature.geometry.coordinates[0] + '</td>'+
         // ' <td>Pending</td>'+
     '  </tr>'+
+
+
+
+
+
+
+
+
     '  <tr class = "warning">'+
       '   <td>Time</td>'+
       // '   <td><span class="label label-warning">Time</span></td>'+
@@ -380,7 +389,7 @@ function run() {
         // console.log("hi");
         featureLayer.loadURL(realurl);
         // $.getJSON( realurl, function( json ) { console.log(json.features.length);});
-    }, 5000);
+    }, 50000);
 }
 
 var testerVar = 0;

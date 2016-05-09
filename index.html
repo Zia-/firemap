@@ -191,6 +191,31 @@ function run() {
       var popup = new L.Popup({ autoPan: false });
       // popup.setContent('<div>' + layer.feature.properties.JDAY + '</div>' +
       //     layer.feature.properties.F_CONF + ' people per square mile');
+      // var lat = layer.feature.geometry.coordinates[1];
+      // var lon = layer.feature.geometry.coordinates[0];
+      // // var baseUrl = 'http://maps.google.com/maps?&z=8&q=';
+      // // var plus = '+';
+      // // var googleMapsUrl = string.concat(baseUrl, lat, plus, lon);
+      //
+      // var lat = '39';
+      // var lon = '42';
+      // // var googleMapsUrl = 'http://maps.google.com/maps?&z=8&q=' + lat '+' + lon '/'
+      // var googleMapsUrl = 'http://maps.google.com/maps?&z=10&q=42+36.1231231'
+
+
+      // var baseUrl = "https://maps.google.com/?q=38.6531004,-90.243462&ll=38.6531004,-90.243462&z=3";
+      var baseUrl = "https://maps.google.com/?q=";
+      // var lat = layer.feature.geometry.coordinates[1];
+      // var plus = "+";
+      // var lon = layer.feature.geometry.coordinates[0];
+      var googleMapsUrl = baseUrl.concat(layer.feature.geometry.coordinates[1],
+                                        ",",layer.feature.geometry.coordinates[0],
+                                        "&ll=",layer.feature.geometry.coordinates[1],
+                                        ",",layer.feature.geometry.coordinates[0],
+                                        "&z=10");
+
+
+
 
       popup.setContent(
         // '<div class="container">'+
@@ -204,14 +229,23 @@ function run() {
   //       // ' <th>Status</th>'+
   //     '</tr>'+
   //  '</thead>'+
+
+// <A HREF="http://maps.google.com/maps?&z=10&q=36.26577+-92.54324"> LINK TO GOOGLE MAP</a>
+
+
    '<tbody>'+
     '  <tr class = "danger">'+ // active success warning danger
-      '   <td>Location</td>'+
-        ' <td>Lon: ' + layer.feature.geometry.coordinates[0] + ', Lat: ' + layer.feature.geometry.coordinates[1] + '</td>'+
+      // '   <td>Location</td>'+
+        // ' <td><button type="button" class="btn-danger"><a href="http://maps.itu.edu.tr/maps/firemap-webpage/firemap-archieve/" target="_blank" class="btn btn-common">Location</a></button></td>'+
+        ' <td><button type="button" class="btn-danger" onclick="window.open(\'' + googleMapsUrl + '\')">Location</button></td>'+
+
+        // ' <td><button type="button" class="btn-danger"><input type="button" onclick="window.open(\'http://www.example.com\',\'_blank\',\'resizable=yes\')" /></button></td>'+
+        ' <td>Lat: ' + layer.feature.geometry.coordinates[1] + ', Lon: ' + layer.feature.geometry.coordinates[0] + '</td>'+
         // ' <td>Pending</td>'+
     '  </tr>'+
     '  <tr class = "warning">'+
       '   <td>Time</td>'+
+      // '   <td><span class="label label-warning">Time</span></td>'+
       '   <td>' + layer.feature.properties.TIME + '</td>'+
       // '   <td>Delivered</td>'+
       '</tr>'+

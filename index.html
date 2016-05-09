@@ -28,13 +28,23 @@
             position: absolute;
             z-index: 1;
             top: 15px;
-            left: 70px;
+            left: 50px;
             /*margin: 20px auto;*/
             width: 12px;
             height: 12px;
             background-color: #55FF00;
             border-radius: 50%;
             box-shadow: #FFFFFF 0 -1px 7px 1px, inset #460 0 -1px 9px, #FFFFFF 0 2px 12px;
+        }
+        .dangerSiren {
+            position: absolute;
+            z-index: 1;
+            /*top: 15px;*/
+            top: -100px;
+            left: 45%;
+            /*width: 12px;*/
+            height: 40px;
+            cursor:default;
         }
     </style>
 
@@ -59,7 +69,8 @@
 <div id="map">
   <!-- More info about siren http://cssdeck.com/labs/css-leds -->
   <div class="led-green"></div>
-  <div class="led-red"></div>
+  <button class="btn btn-disabled btn-danger dangerSiren" type="button">DANGER!</button>
+  <!-- <div class="led-red"></div> -->
 </div>
 
 <!-- <script src="http://cdn.leafletjs.com/leaflet/v0.7.7/leaflet.js"></script> -->
@@ -139,14 +150,22 @@ function mytester() {
       break;
   }
 };
-var geojsontester = setInterval(mytester, 5000);
+var geojsontester = setInterval(mytester, 10000);
 //////////////////////////////////////////////////////////////////////////////////////////////
 
 
+// Function to alter danger button height based on json feature count
+// function dangerTop(featCount) {
+//   if (featCount == 0) {
+//     $("danger").css("top", "-100px");
+//   } else {
+//     $(".danger").css("top", "15px");
+//   }
+// }
+//
 
-
-
-
+// Check if dangerSiren should be active or not on page load
+$.getJSON( realurl, function( json ) {if (json.features.length == 0) {$(".dangerSiren").css("top", "-100px");} else {$(".dangerSiren").css("top", "15px");}});
 
 
 
@@ -277,6 +296,14 @@ function run() {
         ' <td>Lat: ' + layer.feature.geometry.coordinates[1] + ', Lon: ' + layer.feature.geometry.coordinates[0] + '</td>'+
         // ' <td>Pending</td>'+
     '  </tr>'+
+
+
+
+
+
+
+
+
     '  <tr class = "warning">'+
       '   <td>Time</td>'+
       // '   <td><span class="label label-warning">Time</span></td>'+
@@ -363,7 +390,9 @@ function run() {
         // $(".led-green").css('background-color','#3104B4');
         // console.log("hi");
         featureLayer.loadURL(realurl);
-    }, 5000);
+        // Check if dangerSiren should be active or not on url load
+        $.getJSON( realurl, function( json ) {if (json.features.length == 0) {$(".dangerSiren").css("top", "-100px");} else {$(".dangerSiren").css("top", "15px");}});
+    }, 10000); // If want to change the timer then change geojsontester timers also for proper sync.
 }
 
 var testerVar = 0;

@@ -119,13 +119,38 @@ map.fitBounds(bounds);
 //     	}
 
 
+//////////////////////////////////////////////////////////////////////////////////////////////
+var realurl = "https://raw.githubusercontent.com/Zia-/Zia-.github.io/master/firemap_data/realfire0.geojson";
+////////////// To have a static url just delete the following section, and update above url accordingly
+var tester = 0;
+function mytester() {
+  switch (tester){
+    case 0:
+      realurl = "https://raw.githubusercontent.com/Zia-/Zia-.github.io/master/firemap_data/realfire1.geojson";
+      tester = 1;
+      break;
+    case 1:
+      realurl = "https://raw.githubusercontent.com/Zia-/Zia-.github.io/master/firemap_data/realfire2.geojson";
+      tester = 2;
+      break;
+    case 2:
+      realurl = "https://raw.githubusercontent.com/Zia-/Zia-.github.io/master/firemap_data/realfire0.geojson";
+      tester = 0;
+      break;
+  }
+};
+var geojsontester = setInterval(mytester, 5000);
+//////////////////////////////////////////////////////////////////////////////////////////////
 
 
 
 
 
 
-var realurl = "https://raw.githubusercontent.com/Zia-/Zia-.github.io/master/firemap_data/SEVIRI_data.geojson";
+
+
+
+// var realurl = "https://raw.githubusercontent.com/Zia-/Zia-.github.io/master/firemap_data/realfire2.geojson";
 var featureLayer = L.mapbox.featureLayer(realurl, {
     // pointToLayer: L.mapbox.marker.style,
     pointToLayer: function(feature, latlng) {
@@ -329,7 +354,7 @@ function run() {
         // $(".led-green").css('background-color','#3104B4');
         // console.log("hi");
         featureLayer.loadURL(realurl);
-    }, 300000);
+    }, 5000);
 }
 
 var testerVar = 0;

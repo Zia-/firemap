@@ -169,7 +169,16 @@ var featureLayer = L.mapbox.featureLayer(realurl, {
         return L.polygon([L.latLng(lat,lng-0.02548), L.latLng(lat+0.02548,lng), L.latLng(lat,lng+0.02548), L.latLng(lat-0.02548,lng), L.latLng(lat,lng-0.02548)]);
     },
     style: function (feature) {
-      return {color: 'red', weight: 1, opacity: 1};
+      // Change color according to FRP value
+      var rgb = '';
+      var frp_value = feature.properties.FRP
+      if (frp_value <= 30){rgb += '#0000FF'}
+      else if (frp_value > 30 && frp_value <= 40){rgb += '#00BFFF'}
+      else if (frp_value > 40 && frp_value <= 60){rgb += '#00FF80'}
+      else if (frp_value > 60 && frp_value <= 80){rgb += '#40FF00'}
+      else if (frp_value > 80 && frp_value <= 120){rgb += '#FFFF00'}
+      else if (frp_value > 120){rgb += '#FF4000'}
+      return {color: rgb, weight: 1, opacity: 1};
     },
     // popupOptions: function (feature) {
     //   var popup = L.popup()

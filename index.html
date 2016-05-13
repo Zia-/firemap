@@ -132,26 +132,26 @@ map.fitBounds(bounds);
 
 //////////////////////////////////////////////////////////////////////////////////////////////
 // On real server it will be like var realurl = "../realdata-geojson/realfire0.geojson";
-var realurl = "https://raw.githubusercontent.com/Zia-/Zia-.github.io/master/firemap_data/realfire0.geojson";
+var realurl = "https://raw.githubusercontent.com/Zia-/Zia-.github.io/master/firemap_data/VNP14IMGTDL_NRT_Global_24h_turkeyFiltered.geojson";
 ////////////// To have a static url just delete the following section, and update above url accordingly
-var tester = 0;
-function mytester() {
-  switch (tester){
-    case 0:
-      realurl = "https://raw.githubusercontent.com/Zia-/Zia-.github.io/master/firemap_data/realfire1.geojson";
-      tester = 1;
-      break;
-    case 1:
-      realurl = "https://raw.githubusercontent.com/Zia-/Zia-.github.io/master/firemap_data/realfire2.geojson";
-      tester = 2;
-      break;
-    case 2:
-      realurl = "https://raw.githubusercontent.com/Zia-/Zia-.github.io/master/firemap_data/realfire0.geojson";
-      tester = 0;
-      break;
-  }
-};
-var geojsontester = setInterval(mytester, 10000);
+// var tester = 0;
+// function mytester() {
+//   switch (tester){
+//     case 0:
+//       realurl = "https://raw.githubusercontent.com/Zia-/Zia-.github.io/master/firemap_data/realfire1.geojson";
+//       tester = 1;
+//       break;
+//     case 1:
+//       realurl = "https://raw.githubusercontent.com/Zia-/Zia-.github.io/master/firemap_data/realfire2.geojson";
+//       tester = 2;
+//       break;
+//     case 2:
+//       realurl = "https://raw.githubusercontent.com/Zia-/Zia-.github.io/master/firemap_data/realfire0.geojson";
+//       tester = 0;
+//       break;
+//   }
+// };
+// var geojsontester = setInterval(mytester, 10000);
 //////////////////////////////////////////////////////////////////////////////////////////////
 
 
@@ -190,14 +190,15 @@ var featureLayer = L.mapbox.featureLayer(realurl, {
     },
     style: function (feature) {
       // Change color according to FRP value
-      var rgb = '';
-      var frp_value = feature.properties.FRP
-      if (frp_value <= 30){rgb += '#0000FF'}
-      else if (frp_value > 30 && frp_value <= 40){rgb += '#00BFFF'}
-      else if (frp_value > 40 && frp_value <= 60){rgb += '#00FF80'}
-      else if (frp_value > 60 && frp_value <= 80){rgb += '#40FF00'}
-      else if (frp_value > 80 && frp_value <= 120){rgb += '#FFFF00'}
-      else if (frp_value > 120){rgb += '#FF4000'}
+      // var rgb = '';
+      // var frp_value = feature.properties.FIRE_RADIATIVE_POWER
+      // if (frp_value <= 30){rgb += '#0000FF'}
+      // else if (frp_value > 30 && frp_value <= 40){rgb += '#00BFFF'}
+      // else if (frp_value > 40 && frp_value <= 60){rgb += '#00FF80'}
+      // else if (frp_value > 60 && frp_value <= 80){rgb += '#40FF00'}
+      // else if (frp_value > 80 && frp_value <= 120){rgb += '#FFFF00'}
+      // else if (frp_value > 120){rgb += '#FF4000'}
+      var rgb = '#FF0000'
       return {color: rgb, weight: 1, opacity: 1};
     },
     // popupOptions: function (feature) {
@@ -275,7 +276,7 @@ function run() {
         // '<div class="container">'+
         '<div class="table-responsive">    '+
       '<table class = "table">'+
-   '<caption><h1><strong>Fire Radiative Power:</strong> ' + Math.round(layer.feature.properties.FRP) + ' MW</h1></caption>'+
+   '<caption><h1><strong>Fire Radiative Power:</strong> ' + Math.round(layer.feature.properties.FIRE_RADIATIVE_POWER) + ' MW</h1></caption>'+
   //  '<thead>'+
   //     '<tr>'+
   //        '<th>Product</th>'+
@@ -308,46 +309,46 @@ function run() {
     '  <tr class = "warning">'+
       '   <td>Time</td>'+
       // '   <td><span class="label label-warning">Time</span></td>'+
-      '   <td>' + layer.feature.properties.TIME + '</td>'+
+      '   <td>' + layer.feature.properties.ACQUISITION_TIME + '</td>'+
       // '   <td>Delivered</td>'+
       '</tr>'+
-      '<tr class = "success">'+
-      '   <td>Pixel Size</td>'+
-      '   <td>' + layer.feature.properties.PIXEL_SIZE + ' km<sup>2</sup></td>'+
+      // '<tr class = "success">'+
+      '<tr>'+
+      '   <td>Brightness T Ch5</td>'+
+      // '   <td>' + layer.feature.properties.BRIGHTNESS_TEMPERATURE_CHANNEL5 + ' km<sup>2</sup></td>'+
+      '   <td>' + layer.feature.properties.BRIGHTNESS_TEMPERATURE_CHANNEL5 + ' K</td>'+
       // '   <td>In Call to confirm</td>'+
     '  </tr>'+
     '  <tr class = "active">'+
-    '     <td>Fire Confidence</td>'+
-      '   <td>' + layer.feature.properties.F_CONF + '</td>'+
+    '     <td>Brightness T Ch4</td>'+
+      '   <td>' + layer.feature.properties.BRIGHTNESS_TEMPERATURE_CHANNEL4 + ' K</td>'+
       // '   <td>Declined</td>'+
     '  </tr>'+
     '  <tr class = "active">'+
-    '     <td>FIR Uncertainity</td>'+
-      '   <td>' + layer.feature.properties.FRP_UNCER + '</td>'+
+    '     <td>Date</td>'+
+      '   <td>' + layer.feature.properties.ACQUISITION_DATE + '</td>'+
       // '   <td>Declined</td>'+
     '  </tr>'+
-    '  </tr>'+
+    // '  </tr>'+
     '  <tr class = "active">'+
-    '     <td>Brightness MIR Temp.</td>'+
-      '   <td>' + layer.feature.properties.BT_MIR + ' K</td>'+
+    '     <td>Day / Night</td>'+
+      '   <td>' + layer.feature.properties.DAYNIGHT + '</td>'+
       // '   <td>Declined</td>'+
     '  </tr>'+
-    '  </tr>'+
-    '  <tr class = "active">'+
-    '     <td>Brightness TIR Temp.</td>'+
-      '   <td>' + layer.feature.properties.BT_TIR + ' K</td>'+
-      // '   <td>Declined</td>'+
-    '  </tr>'+
+    // '  </tr>'+
+    // '  <tr class = "active">'+
+    // '     <td>Brightness TIR Temp.</td>'+
+    //   '   <td>' + layer.feature.properties.BT_TIR + ' K</td>'+
+    // '  </tr>'+
     // '  <tr class = "active">'+
     // '     <td>Brightness TIR Temp.</td>'+
     //   '   <td>' + layer.feature.properties.BW_BT_MIR + '</td>'+
     //   // '   <td>Declined</td>'+
     // '  </tr>'+
-    '  <tr class = "active">'+
-    '     <td>Julian Day</td>'+
-      '   <td>' + layer.feature.properties.JDAY + '</td>'+
-      // '   <td>Declined</td>'+
-    '  </tr>'+
+    // '  <tr class = "active">'+
+    // '     <td>Julian Day</td>'+
+    //   '   <td>' + layer.feature.properties.JDAY + '</td>'+
+    // '  </tr>'+
    '</tbody>'+
 '</table>'+
 // '  </div>'+
@@ -393,7 +394,7 @@ function run() {
         featureLayer.loadURL(realurl);
         // Check if dangerSiren should be active or not on url load
         $.getJSON( realurl, function( json ) {if (json.features.length == 0) {$(".dangerSiren").css("top", "-100px");} else {$(".dangerSiren").css("top", "15px");}});
-    }, 10000); // If want to change the timer then change geojsontester timers also for proper sync.
+    }, 300000); // If want to change the timer then change geojsontester timers also for proper sync.
 }
 
 var testerVar = 0;

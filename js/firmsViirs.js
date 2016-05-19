@@ -1,0 +1,3 @@
+function firmsViirs() {
+    alert("viirs")
+}

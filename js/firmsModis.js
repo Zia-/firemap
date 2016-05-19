@@ -1,0 +1,3 @@
+function firmsModis() {
+    alert("modis")
+}

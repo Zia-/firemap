@@ -5,6 +5,7 @@
     <link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet/v0.7.7/leaflet.css" />
     <link href='https://api.mapbox.com/mapbox.js/v2.4.0/mapbox.css' rel='stylesheet' />
     <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+    <!-- <link href="https://gitcdn.github.io/bootstrap-toggle/2.2.2/css/bootstrap-toggle.min.css" rel="stylesheet"> -->
     <style>
         /*#map { width: 800px; height: 600px; }
         body { font: 16px/1.4 "Helvetica Neue", Arial, sans-serif; }
@@ -49,14 +50,14 @@
         .checkboxData {
             position: absolute;
             z-index: 1;
-            border-radius: 10px;
-            border: 1px solid #73AD21;
-            padding: 5px;
+            /*border-radius: 10px;*/
+            /*border: 1px solid #73AD21;*/
+            /*padding: 5px;*/
             /*background-color: white;*/
             /*opacity: 0.5;*/
-            background: rgba(255, 255, 255, .3);
+            /*background: rgba(255, 255, 255, .3);*/
             /*background: rgba(0, 0, 0, .3);*/
-            color: #2E9AFE;
+            /*color: #2E9AFE;*/
             /*text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;*/
             /*text-shadow: 2px 2px 1px rgba(255,255,0,0.3);*/
             /*text-shadow: 0 1px 0 #ccc,
@@ -71,13 +72,13 @@
                0 5px 10px rgba(0,0,0,.25),
                0 10px 10px rgba(0,0,0,.2),
                0 20px 20px rgba(0,0,0,.15);*/
-            font-size: 12px;
+            /*font-size: 12px;
             font-family: "Times New Roman", Times, serif;
             top: 65px;
             left: 10px;
             width: 145px;
             height: 75px;
-            cursor:default;
+            cursor:default;*/
         }
         .rasterLayers {
             position: absolute;
@@ -184,12 +185,12 @@
 
 
   <div class="btn-group-vertical buttonData" role="group" aria-label="...">
-    <button type="button" class="btn btn-default buttonTransparent">FRP-PIXEL (SEVIRI)</button>
-    <button type="button" class="btn btn-default buttonTransparent">FIRMS (MODIS)</button>
-    <button type="button" class="btn btn-default buttonTransparent">FIRMS (VIIRS)</button>
+    <button type="button" data-toggle="button" class="btn btn-default buttonTransparent" onclick="frpPixelSeviri()">FRP-PIXEL (SEVIRI)</button>
+    <button type="button" data-toggle="button" class="btn btn-default buttonTransparent" onclick="firmsModis()">FIRMS (MODIS)</button>
+    <button type="button" data-toggle="button" class="btn btn-default buttonTransparent" onclick="firmsViirs()">FIRMS (VIIRS)</button>
   </div>
 
-
+<!-- <input type="checkbox" style="z-index:2000" checked data-toggle="toggle" data-on="Ready" data-off="Not Ready" data-onstyle="success" data-offstyle="danger"> -->
 
 
 
@@ -246,7 +247,12 @@
 <script src="https://api.mapbox.com/mapbox.js/plugins/leaflet-heat/v0.1.3/leaflet-heat.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.2/jquery.min.js"></script>
 <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
-<script src="http://zia-.github.io/firemap_data/geo_2015.js"></script>
+<!-- <script src="https://gitcdn.github.io/bootstrap-toggle/2.2.2/js/bootstrap-toggle.min.js"></script> -->
+<script src="js/documentLoad.js"></script>
+<script src="js/frpPixelSeviri.js"></script>
+<script src="js/firmsModis.js"></script>
+<script src="js/firmsViirs.js"></script>
+<!-- <script src="http://zia-.github.io/firemap_data/geo_2015.js"></script> -->
 <script>
 // Fix mapbox token
 L.mapbox.accessToken = 'pk.eyJ1IjoiemlhLW0iLCJhIjoiQjM5aVpfTSJ9.s_U7YxQCK-Zq5SaJemH5bA';

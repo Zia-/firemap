@@ -1,0 +1,3 @@
+function frpPixelSeviri() {
+    alert("seviri")
+}

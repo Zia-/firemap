@@ -1,12 +1,12 @@
 var firmsViirsToggleVar = 0;
+// firmsViirsFeatureLayer var is global to make it accessibke to both if and else
+var firmsViirsFeatureLayer;
 function firmsViirs() {
     if (firmsViirsToggleVar == 0){
       // Load viirs data --------------------------------------------
       var realurl = "http://maps.itu.edu.tr/maps/firemap/realdata-geojson/viirs/VNP14IMGTDL_NRT_Global_24h_turkeyFiltered.geojson"
-      // If some hot spot then siren
-      $.getJSON( realurl, function( json ) {if (json.features.length == 0) {$(".dangerSiren").css("top", "-100px");} else {$(".dangerSiren").css("top", "15px");}});
       // Create and add featureLayer to map
-      var featureLayer = L.mapbox.featureLayer(realurl, {
+      firmsViirsFeatureLayer = L.mapbox.featureLayer(realurl, {
           pointToLayer: function(feature, latlng) {
               var lng = latlng['lng']
               var lat = latlng['lat']
@@ -19,9 +19,9 @@ function firmsViirs() {
       })
           .on('ready', run)
           .addTo(map);
-      // Run this function on featureLayer ready
+      // Run this function on firmsViirsFeatureLayer ready
       function run() {
-          featureLayer.eachLayer(function(layer) {
+          firmsViirsFeatureLayer.eachLayer(function(layer) {
             var popup = new L.Popup({ autoPan: false });
             var baseUrl = "https://maps.google.com/?q=";
             var googleMapsUrl = baseUrl.concat(layer.feature.geometry.coordinates[1],
@@ -65,7 +65,7 @@ function firmsViirs() {
             layer.bindPopup(popup);
           });
           window.setTimeout(function() {
-              featureLayer.loadURL(realurl);
+              firmsViirsFeatureLayer.loadURL(realurl);
               $.getJSON( realurl, function( json ) {if (json.features.length == 0) {$(".dangerSiren").css("top", "-100px");} else {$(".dangerSiren").css("top", "15px");}});
           }, 300000); // If want to change the timer then change geojsontester timers also for proper sync.
       }
@@ -73,6 +73,7 @@ function firmsViirs() {
       firmsViirsToggleVar = 1;
     } else {
       // Unload viirs data
+      map.removeLayer(firmsViirsFeatureLayer);
       // Change toggler value
       firmsViirsToggleVar = 0;
     }

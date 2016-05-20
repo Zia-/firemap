@@ -1,5 +1,5 @@
 // Load frp pixel seviri data ---------------------------------------------
-var frpPixelSeviriRealurl = "https://raw.githubusercontent.com/Zia-/Zia-.github.io/master/firemap_data/HDF5_LSASAF_MSG_FRP-PIXEL-ListProduct_MSG-Disk_turkeyFiltered.geojson"
+var frpPixelSeviriRealurl = "http://maps.itu.edu.tr/maps/firemap/realdata-geojson/seviri_lsa/HDF5_LSASAF_MSG_FRP-PIXEL-ListProduct_MSG-Disk_turkeyFiltered.geojson"
 
 // Create frp pixel seviri featureLayer
 var frpPixelSeviriFeatureLayer = L.mapbox.featureLayer(frpPixelSeviriRealurl, {

@@ -107,10 +107,11 @@
             /*font-family: "Times New Roman", Times, serif;*/
             top: 75px;
             left: 10px;
-            width: 140px;
+            width: 150px;
             height: 75px;
             /*cursor:default;*/
         }
+
         /* Following three codes for checkbox */
         /*label.radio-inline, label.checkbox-inline, label.radio, label.checkbox {
           z-index: 1;
@@ -183,27 +184,45 @@
 
 
   <div class="btn-group rasterLayers" data-toggle="buttons"> <!--More http://getbootstrap.com/javascript/#buttons-checkbox-radio-->
-    <label class="btn btn-default buttonTransparent">
+    <label class="btn btn-default buttonTransparent" disabled>
       <input type="radio">FIRE DANGER
     </label>
-    <label class="btn btn-default buttonTransparent">
+    <label class="btn btn-default buttonTransparent" disabled>
       <input type="radio">PROTECTED AREAS
     </label>
-    <label class="btn btn-default buttonTransparent">
+    <!-- <label class="btn btn-default buttonTransparent">
       <input type="radio">QUALITY FLAG
-    </label>
-    <label class="btn btn-default buttonTransparent active">
+    </label> -->
+    <!-- <label class="btn btn-default buttonTransparent active">
       <input type="radio" checked>X
-    </label>
+    </label> -->
   </div>
 
 
 
 
   <div class="btn-group-vertical buttonData" role="group" aria-label="...">
-    <button type="button" data-toggle="button" class="btn btn-default buttonTransparent" onclick="frpPixelSeviri()">FRP-PIXEL (SEVIRI)</button>
-    <button type="button" data-toggle="button" class="btn btn-default buttonTransparent" onclick="firmsModisc6()">FIRMS (MODIS)</button>
-    <button type="button" data-toggle="button" class="btn btn-default buttonTransparent" onclick="firmsViirs()">FIRMS (VIIRS)</button>
+    <!-- <button type="button" data-toggle="button" class="btn btn-default buttonTransparent" onclick="frpPixelSeviri()">FRP-PIXEL (SEVIRI)</button> -->
+    <!-- <button type="button" data-toggle="button" class="btn btn-default buttonTransparent" onclick="firmsModisc6()">FIRMS (MODIS)</button> -->
+    <!-- <button type="button" data-toggle="button" class="btn btn-default buttonTransparent" onclick="firmsViirs()">FIRMS (VIIRS)</button> -->
+    <!-- <button type="button" data-toggle="button" class="btn btn-default buttonTransparent" onclick="firmsViirs()">
+      <input type="checkbox" id="finRot2" name="something" value="Fin Rot">
+      <label for="finRot2">I'm like a button!</label>
+    </button> -->
+
+    <!-- <input type="checkbox" id="checkboxFrpPixelSeviri" name="something" value="checkboxFrpPixelSeviri"> -->
+    <button style="outline: none; text-align: left;" type="button" data-toggle="button" class="btn btn-default buttonTransparent" onclick="frpPixelSeviri(); document.getElementById('checkboxFrpPixelSeviri').checked=!document.getElementById('checkboxFrpPixelSeviri').checked;">
+      <input type="checkbox" id="checkboxFrpPixelSeviri" name="something" value="checkboxFrpPixelSeviri"> FRP-PIXEL (SEVIRI)
+    </button>
+
+    <button style="outline: none; text-align: left;" type="button" data-toggle="button" class="btn btn-default buttonTransparent" onclick="firmsModisc6(); document.getElementById('checkboxFirmsModisc6').checked=!document.getElementById('checkboxFirmsModisc6').checked;">
+      <input type="checkbox" id="checkboxFirmsModisc6" name="something" value="checkboxFirmsModisc6"> FIRMS (MODIS)
+    </button>
+
+    <button style="outline: none; text-align: left;" type="button" data-toggle="button" class="btn btn-default buttonTransparent" onclick="firmsViirs(); document.getElementById('checkboxFirmsViirs').checked=!document.getElementById('checkboxFirmsViirs').checked;">
+      <input type="checkbox" id="checkboxFirmsViirs" name="something" value="checkboxFirmsViirs"> FIRMS (VIIRS)
+    </button>
+
   </div>
 
 <!-- <input type="checkbox" style="z-index:2000" checked data-toggle="toggle" data-on="Ready" data-off="Not Ready" data-onstyle="success" data-offstyle="danger"> -->
@@ -744,7 +763,6 @@ $(document).ready(function() {
 });
 
 </script> -->
-
 
 </body>
 </html>

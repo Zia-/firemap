@@ -12,6 +12,22 @@
         body { margin:0; padding:0; }
         #map { position:absolute; top:0; bottom:0; width:100%; }
     </style>
+
+    <style>
+    /*
+     * Unlike other icons, you can style `L.divIcon` with CSS.
+     * These styles make each marker a pink triangle.
+     */
+    .css-icon {
+      width: 0;
+      height: 0;
+      border-top: 30px solid transparent;
+      border-bottom: 30px solid transparent;
+      border-left: 30px solid #ff8888;
+      }
+    </style>
+
+
 </head>
 
 <body>
@@ -20,7 +36,7 @@
 <!-- <script src="http://cdn.leafletjs.com/leaflet/v0.7.7/leaflet.js"></script> -->
 <script src='https://api.mapbox.com/mapbox.js/v2.4.0/mapbox.js'></script>
 <script src="https://api.mapbox.com/mapbox.js/plugins/leaflet-heat/v0.1.3/leaflet-heat.js"></script>
-<script src="http://zia-.github.io/firemap_data/realworld_10000.js"></script>
+<script src="http://zia-.github.io/firemap_data/geo_2015.js"></script>
 <script>
 // Fix mapbox token
 L.mapbox.accessToken = 'pk.eyJ1IjoiemlhLW0iLCJhIjoiQjM5aVpfTSJ9.s_U7YxQCK-Zq5SaJemH5bA';
@@ -28,21 +44,165 @@ L.mapbox.accessToken = 'pk.eyJ1IjoiemlhLW0iLCJhIjoiQjM5aVpfTSJ9.s_U7YxQCK-Zq5SaJ
 // 40.903699, 28.697378  41.177273, 29.276363 Istanbul bounds which was used to download osm data
 // Construct a bounding box for this map that the user cannot move out of
 var minlatbound = 35.570652, minlonbound = 24.884267, maxlatbound = 42.425880, maxlonbound = 45.252919;
+// var minlatbound = -6.983754, minlonbound = 38.982368, maxlatbound = -6.574648, maxlonbound = 39.500786;
 var southWestbound = L.latLng(minlatbound, minlonbound),
     northEastbound = L.latLng(maxlatbound, maxlonbound),
     bounds = L.latLngBounds(southWestbound, northEastbound);
 
 // Initialize the map
-var map = L.mapbox.map('map', 'mapbox.dark', {
+var map = L.mapbox.map('map', null, {
           maxBounds: bounds,
           maxZoom: 19,
-          minZoom: 3
+          minZoom: 1
 });
 map.fitBounds(bounds);
-
 // Code from here https://github.com/Leaflet/Leaflet.heat/blob/gh-pages/demo/index.html
-addressPoints = addressPoints.map(function (p) { return [p[0], p[1]]; });
-var heat = L.heatLayer(addressPoints).addTo(map);
+// firedata = firedata.map(function (p) { return [p[2], p[3]]; });
+// var heat = L.heatLayer(firedata);
+// heat.addTo(map);
+
+// Define an icon called cssIcon
+// var cssIcon = L.divIcon({
+//   // Specify a class name we can refer to in CSS.
+//   className: 'css-icon',
+//   // Set marker width and height
+//   iconSize: [60, 60]
+// });
+//
+// // Create three markers and set their icons to cssIcon
+// L.marker([36, 32], {icon: cssIcon}).addTo(map);
+
+// console.log(firedata.length);
+
+
+// pointToLayer: function(feature, latlng) {
+//         return L.circleMarker(latlng, {
+//             radius: (feature.properties.population)/200000
+//         })
+//     },
+//     style: function (feature) {
+//     return {color: color_rgb_gen_redgreen( 78550, 14657434, feature.properties.population)};
+//     	},
+//     	onEachFeature: function (feature, layer) {
+//     layer.bindPopup(feature.properties.population);
+//     	}
+
+
+// var myIcon = L.icon({
+//     iconUrl: 'https://cdn2.iconfinder.com/data/icons/auto-cars/154/auto-car-beetle-small-128.png',
+//     // iconRetinaUrl: 'my-icon@2x.png',
+//     iconSize: [38, 95],
+//     iconAnchor: [22, 94],
+//     popupAnchor: [-3, -76],
+//     // shadowUrl: 'my-icon-shadow.png',
+//     // shadowRetinaUrl: 'my-icon-shadow@2x.png',
+//     shadowSize: [68, 95],
+//     shadowAnchor: [22, 94]
+// });
+//
+//
+//
+// var realurl = "https://raw.githubusercontent.com/Zia-/Ally-gis-code-challenge-Solution/master/data/activity_points.geojson";
+// var featureLayer = L.mapbox.featureLayer(realurl, {
+//     // pointToLayer: L.mapbox.marker.style,
+//     pointToLayer: function(feature, latlng) {
+//         return L.marker(latlng, {
+//             // radius: (feature.properties.previous_dominating_activity_confidence)/10
+//             // radius: 20
+//             icon: myIcon
+//         })
+//     },
+//     style: function (feature) {
+//       return {color: 'red'};
+//     },
+//     // onEachFeature: function (feature, layer) {
+//     //   layer.bindPopup('aaa');
+//   	// }
+// })
+//     // .loadURL('')
+//     // Once this layer loads, we set a timer to load it again in a few seconds.
+//     .on('ready', run)
+//     .bindPopup('Hello world!')
+//     // .setStyle()
+//     .addTo(map);
+//
+// function run() {
+//     // featureLayer.eachLayer(function(l) {
+//     //     map.panTo(l.getLatLng());
+//     // });
+//     window.setTimeout(function() {
+//         featureLayer.loadURL(realurl);
+//     }, 2000);
+// }
+
+
+
+
+
+
+for (i=0; i<firedata.length; ++i){
+  // console.log(firedata[i][2]);
+  // console.log(firedata[i][3]);
+  // xmin = firedata[i][2]-0.02548;
+  // xmax = firedata[i][2]+0.02548;
+  // ymin = firedata[i][3]-0.02548;
+  // ymax = firedata[i][3]+0.02548;
+  array = []
+  arr = [firedata[i][2]-0.02548, firedata[i][3]]
+  array.push(arr);
+  arr = [firedata[i][2], firedata[i][3]+0.02548]
+  array.push(arr);
+  arr = [firedata[i][2]+0.02548, firedata[i][3]]
+  array.push(arr);
+  arr = [firedata[i][2], firedata[i][3]-0.02548]
+  array.push(arr);
+  arr = [firedata[i][2]-0.02548, firedata[i][3]]
+  array.push(arr);
+  // 30, 40, 60, 80, 120 green,
+  rgb = '';
+  if (firedata[i][5] <= 30){rgb += '#0000FF'}
+  else if (firedata[i][5] > 30 && firedata[i][5] <= 40){rgb += '#00BFFF'}
+  else if (firedata[i][5] > 40 && firedata[i][5] <= 60){rgb += '#00FF80'}
+  else if (firedata[i][5] > 60 && firedata[i][5] <= 80){rgb += '#40FF00'}
+  else if (firedata[i][5] > 80 && firedata[i][5] <= 120){rgb += '#FFFF00'}
+  else if (firedata[i][5] > 120){rgb += '#FF4000'}
+  L.polygon(array, {color: rgb, opacity: 1, weight: 0}).addTo(map);
+}
+
+// for (i = 0; i < 1000; ++i){
+//   array = []
+//   arr = [36+i/100, 32+i/100]
+//   array.push(arr);
+//   arr = [36.1+i/100, 32.1+i/100]
+//   array.push(arr);
+//   arr = [36.2+i/100, 32.2+i/100]
+//   array.push(arr);
+//   arr = [36+i/100, 32+i/100]
+//   array.push(arr);
+//   L.polygon(array, {color: 'red'}).addTo(map);
+// };
+// L.polygon([[36, 32],[37,32],[38,33],[36,32]], {color: 'red'}).addTo(map);
+
+// Other mapbox layers https://www.mapbox.com/api-documentation/#maps
+var layers = {
+      Dark: L.mapbox.tileLayer('mapbox.dark'),
+      Streets: L.mapbox.tileLayer('mapbox.streets'),
+      Light: L.mapbox.tileLayer('mapbox.light'),
+      Satellite: L.mapbox.tileLayer('mapbox.satellite'),
+      StreetsSatellite: L.mapbox.tileLayer('mapbox.streets-satellite'),
+      Wheatpaste: L.mapbox.tileLayer('mapbox.wheatpaste'),
+      StreetsBasic: L.mapbox.tileLayer('mapbox.streets-basic'),
+      Comic: L.mapbox.tileLayer('mapbox.comic'),
+      Outdoors: L.mapbox.tileLayer('mapbox.outdoors'),
+      RunBikeHike: L.mapbox.tileLayer('mapbox.run-bike-hike'),
+      Pencil: L.mapbox.tileLayer('mapbox.pencil'),
+      Pirates: L.mapbox.tileLayer('mapbox.pirates'),
+      Emerald: L.mapbox.tileLayer('mapbox.emerald'),
+      HighContrast: L.mapbox.tileLayer('mapbox.high-contrast')
+};
+
+layers.Dark.addTo(map);
+L.control.layers(layers).addTo(map);
 </script>
 </body>
 </html>

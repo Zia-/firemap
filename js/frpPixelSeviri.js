@@ -28,30 +28,30 @@ function featureLayerFrpPixelSeviriPopupBind() {
     popup.setContent(
       '<div class="table-responsive">    '+
           '<table class = "table">'+
-       '<caption><h1><strong>Fire Radiative Power:</strong> ' + Math.round(layer.feature.properties.FIRE_RADIATIVE_POWER) + ' MW</h1></caption>'+
+       '<caption><h1><strong>Radyatif Yangin Gucu:</strong> ' + Math.round(layer.feature.properties.FIRE_RADIATIVE_POWER) + ' MW</h1></caption>'+
        '<tbody>'+
         '  <tr class = "danger">'+
-            ' <td><button type="button" class="btn-danger" onclick="window.open(\'' + googleMapsUrl + '\')">Location</button></td>'+
-            ' <td>Lat: ' + layer.feature.geometry.coordinates[1] + ', Lon: ' + layer.feature.geometry.coordinates[0] + '</td>'+
+            ' <td><button type="button" class="btn-danger" onclick="window.open(\'' + googleMapsUrl + '\')">Yer</button></td>'+
+            ' <td>En: ' + layer.feature.geometry.coordinates[1] + ', Boy: ' + layer.feature.geometry.coordinates[0] + '</td>'+
         '  </tr>'+
         '  <tr class = "success">'+
-        '     <td>Pixel Size</td>'+
+        '     <td>Piksel Boyutu</td>'+
           '   <td>' + layer.feature.properties.PIXEL_SIZE + '</td>'+
         '  </tr>'+
         '  <tr class = "warning">'+
-          '   <td>Time</td>'+
+          '   <td>Zaman</td>'+
           '   <td>' + layer.feature.properties.ACQUISITION_TIME + '</td>'+
           '</tr>'+
           '<tr>'+
-          '   <td>Brightness T MIR</td>'+
+          '   <td>Parlaklik T MIR</td>'+
           '   <td>' + layer.feature.properties.BRIGHTNESS_TEMPERATURE_MIR + ' K</td>'+
         '  </tr>'+
         '  <tr class = "active">'+
-        '     <td>Brightness T TIR</td>'+
+        '     <td>Parlaklik T TIR</td>'+
           '   <td>' + layer.feature.properties.BRIGHTNESS_TEMPERATURE_TIR + ' K</td>'+
         '  </tr>'+
         '  <tr class = "active">'+
-        '     <td>Fire Confidence</td>'+
+        '     <td>Ynagin Guven</td>'+
           '   <td>' + layer.feature.properties.FIRE_CONFIDENCE + '</td>'+
         '  </tr>'+
        '</tbody>'+
